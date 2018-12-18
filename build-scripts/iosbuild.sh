@@ -8,6 +8,8 @@ if test x$NJOB = x; then
     NJOB=$NCPU
 fi
 
+# The prefix of build directory
+# 'PWD' is a environment variable; the path of current working directory.
 SRC_DIR=$(cd `dirname $0`/..; pwd)
 if [ "$PWD" = "$SRC_DIR" ]; then
     PREFIX=$SRC_DIR/ios-build
@@ -23,15 +25,25 @@ BUILD_IOS_ARMV7=YES
 BUILD_IOS_ARMV7S=YES
 BUILD_IOS_ARM64=YES
 
+# Where to find these value?
+# https://en.wikipedia.org/wiki/Darwin_(operating_system)
 # 13.4.0 - Mavericks
 # 14.0.0 - Yosemite
 # 15.0.0 - El Capitan
 DARWIN=darwin15.0.0
 
+# The path of the active developer directory
+## This directory controls which tools are used for the Xcode command line tools 
+## (for example, xcodebuild) as well as the BSD development commands 
+## (such as cc and make).
 XCODEDIR=`xcode-select --print-path`
+
+# xcrun: Find and execute the named command line tool from the active developer directory.
+## show selected SDK version
 IOS_SDK_VERSION=`xcrun --sdk iphoneos --show-sdk-version`
 MIN_SDK_VERSION=6.0
 
+#
 IPHONEOS_PLATFORM=`xcrun --sdk iphoneos --show-sdk-platform-path`
 IPHONEOS_SYSROOT=`xcrun --sdk iphoneos --show-sdk-path`
 
